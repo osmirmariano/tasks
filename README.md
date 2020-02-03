@@ -1,8 +1,8 @@
 # tasks
 
-**Gerenciador de Tarefas
+** Gerenciador de Tarefas
 
---Aplicação terá um sistema backend, mobile e web
+-- Aplicação terá um sistema backend, mobile e web
 
 - Cadastro de usuários sem perfis
 - Login de usuários
