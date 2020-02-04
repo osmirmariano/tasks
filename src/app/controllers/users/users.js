@@ -1,7 +1,5 @@
 "use strict";
 const { users } = require('../../models/index');
-const checkToken = require('../../middlewares/check_token');
-
 var bcrypt = require('bcryptjs');
 
 class Users {
