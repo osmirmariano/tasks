@@ -2,7 +2,7 @@
 const { users } = require('../../models/index')
 var jwt = require('jsonwebtoken');
 var bcrypt = require('bcryptjs');
-var config = require('../../config/config');
+var config = require('../../../config/config');
 
 class Login {
     /**
@@ -12,7 +12,7 @@ class Login {
      */
     async login(req, res) {
         try {
-            var userFinded = await user.findOne({ users: req.body.user }).exec();
+            var userFinded = await users.findOne({ user: req.body.user }).exec();
             var passwordIsValid = bcrypt.compareSync(req.body.password, userFinded.password.password);
             console.log(passwordIsValid)
             if (!passwordIsValid) {

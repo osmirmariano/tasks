@@ -6,6 +6,6 @@ router.post("", groupsController.store);
 router.get("", groupsController.show);
 router.get("", groupsController.showById);
 router.put("/:id", groupsController.update);
-router.delete("/:id", groupsController.delete);
+// router.delete("/:id", groupsController.delete);
 
 module.exports = router;

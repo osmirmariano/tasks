@@ -1,5 +1,5 @@
 //modulo de configuração do database groups
-const mongoose = require('../config/database')
+const mongoose = require('../../config/database')
 
 //define o schema do groups
 const groupsSchema = mongoose.Schema({

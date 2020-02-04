@@ -1,5 +1,5 @@
 //modulo de configuração do database tasks
-const mongoose = require('../config/database')
+const mongoose = require('../../config/database')
 
 //define o schema do tasks
 const tasksSchema = mongoose.Schema({
@@ -37,9 +37,6 @@ const tasksSchema = mongoose.Schema({
             default: null 
         },
         id_user_sharing: [{ type: mongoose.Schema.Types.ObjectId, ref: 'users' }],
-        permissions: [{
-            type: String, enum: PERMISSIONS
-        }],
     },
     registered: { type: Date, default: Date.now },
     updated: { type: Date, default: null },

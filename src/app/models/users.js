@@ -1,5 +1,5 @@
 //modulo de configuração do database user
-const mongoose = require('../config/database')
+const mongoose = require('../../config/database')
 
 //define o schema do user
 const usersSchema = mongoose.Schema({
