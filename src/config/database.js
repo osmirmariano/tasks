@@ -22,7 +22,7 @@ const mongoose = require('mongoose')
 // }
 
 mongoose.set('useCreateIndex', true);
-mongoose.connect(process.env.MONGODB_URI, {useNewUrlParser: true})
+mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true })
 
 //mensagens de erro genericas
 mongoose.Error.messages.general.required = "O atributo '{PATH}' é obrigatório."

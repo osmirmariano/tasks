@@ -1,6 +1,6 @@
-const PERMISSIONS = [
-    "master"
-];
+const PERMISSIONS = {
+    master: "master"
+};
 
 module.exports = {
     PERMISSIONS

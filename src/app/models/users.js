@@ -39,6 +39,7 @@ const usersSchema = mongoose.Schema({
             maxlength: 200
         }
     },
+    permission: [],
     phone: {
         type: String, maxlength: 30, lowercase: true, sparse: true
     },

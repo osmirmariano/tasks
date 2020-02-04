@@ -1,6 +1,7 @@
 const { users } = require('../models/index')
 var jwt = require('jsonwebtoken')
 var config = require('../../config/config');
+const keys = require('../constants/keys');
 
 class CheckToken {
     constructor() { }
@@ -40,15 +41,6 @@ class CheckToken {
                             })
                         }  else {
                             next();
-                            // res.status(200).json({
-                            //     messageCode: 0,
-                            //     message: {
-                            //         title: "Sucesso",
-                            //         message: "Token válido!"
-                            //     },
-                            //     auth: true,
-                            //     data: { decoded, usersFindId },
-                            // })
                         }
                     } catch (error) {
                         res.status(401).json({
@@ -62,6 +54,11 @@ class CheckToken {
                 }
             });
         }
+    }
+
+    async checkAdmin(req, res, nex) {
+        const key = req.headers.key;
+        // if(key.KEYS)
     }
 }
 

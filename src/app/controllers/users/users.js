@@ -33,19 +33,53 @@ class Users {
         }
     }
 
-    async show(req, res){
-        console.log('ghjkjh')
+    async update(req, res){
+        try {
+            let body = {
+                ...req.body
+            }
+            let userUpdate = await users.findByIdAndUpdate({ _id: req.params.id }, body, { new: true }).exec();
+            res.status(200).json({
+                messageCode: 0,
+                message: {
+                    title: "Sucesso",
+                    message: "Usuário atualizado com sucesso!"
+                },
+                data: userUpdate
+            });
+        } catch (error) {
+            res.status(400).json({
+                messageCode: 3,
+                message: {
+                    title: "Erro",
+                    message: "Não foi possível editar usuário"
+                },
+                error: error
+            })
+        }
     }
 
     async showById(req, res){
-
-    }
-
-    async update(req, res){
-
-    }
-
-    async index(req, res){
+        try {
+            let userInfo = await users.findOne({ _id: req.params.id }, '-password').exec();
+            res.status(200).json({
+                messageCode: 0,
+                message: {
+                    title: "Sucesso",
+                    message: "Usuário listado com sucesso!"
+                },
+                data: userInfo
+            })
+        } catch (error) {
+            res.status(400).json({
+                messageCode: 3,
+                message: {
+                    title: "Erro",
+                    message: "Erro no banco de dados"
+                },
+                erro: error
+            })
+        }
 
     }
 }
