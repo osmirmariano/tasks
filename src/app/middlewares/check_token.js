@@ -1,7 +1,6 @@
 const { users } = require('../models/index')
 var jwt = require('jsonwebtoken')
 var config = require('../../config/config');
-const keys = require('../constants/keys');
 
 class CheckToken {
     constructor() { }
@@ -32,14 +31,15 @@ class CheckToken {
                     try{
                         let usersFindId = await users.findById(decoded.id, 'user name email.email phone registered');
                         if(!usersFindId)  {
-                            res.status(401).json({
+                            res.status(404).json({
                                 messageCode: 3,
                                 message: {
                                     title: "Erro",
-                                    message: "Erro ao encontrar usuário!"
+                                    message: "O token informado não pertence a seu usuário!"
                                 }
                             })
                         }  else {
+                            req.headers = { ...req.headers, auth: usersFindId }
                             next();
                         }
                     } catch (error) {
@@ -47,18 +47,13 @@ class CheckToken {
                             messageCode: 3,
                             message: {
                                 title: "Erro",
-                                message: "Erro ao encontrar usuário!"
+                                message: "O token informado não pertence a seu usuário!"
                             }
                         })
                     }
                 }
             });
         }
-    }
-
-    async checkAdmin(req, res, nex) {
-        const key = req.headers.key;
-        // if(key.KEYS)
     }
 }
 

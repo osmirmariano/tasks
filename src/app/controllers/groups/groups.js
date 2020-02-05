@@ -1,6 +1,32 @@
+const { groups } = require('../../models/index')
+
 class Groups {
     async store(req, res){
+        let groupBody = {
+            ...req.body,
+            'user.id_user': req.headers.auth.id
+        }
 
+        try {
+            let createGroup = await groups.create(groupBody);
+            res.status(200).json({
+                messageCode: 0,
+                message: {
+                    title: "Sucesso",
+                    message: "Grupo criado com sucesso!"
+                },
+                data: createGroup
+            })
+        } catch (error) {
+            res.status(200).json({
+                messageCode: 3,
+                message: {
+                    title: "Erro",
+                    message: "Não foi posível criar grupo!"
+                },
+                data: error
+            })
+        }
     }
 
     async show(req, res){

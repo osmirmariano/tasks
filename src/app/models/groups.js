@@ -7,15 +7,15 @@ const groupsSchema = mongoose.Schema({
         type: String,
         required: [true, 'Nome não informado.'] 
     },
+    description: {
+        type: String
+    },
     user: {
         id_user: {
             type: mongoose.Schema.Types.ObjectId, ref: 'users', 
             default: null 
         },
         id_user_sharing: [{ type: mongoose.Schema.Types.ObjectId, ref: 'users' }],
-    },
-    task: {
-        id_task: [{ type: mongoose.Schema.Types.ObjectId, ref: 'tasks' }],
     },
     registered: { type: Date, default: Date.now },
     updated: { type: Date, default: null },

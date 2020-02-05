@@ -10,7 +10,9 @@ routes.get('/', (req, res) => {
 // routes.use(auth.checkToken);
 routes.use("/groups", require("./groups"));
 routes.use("/tasks", require("./tasks"));
+routes.use("/users/admin", require("./admin"));
 routes.use("/users", require("./users"));
 routes.use("/login", require("./login"));
+
 
 module.exports = routes;
