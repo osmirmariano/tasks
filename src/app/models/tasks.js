@@ -15,10 +15,10 @@ const tasksSchema = mongoose.Schema({
         type: String,
         enum: { values: ['create', 'running', 'finalized', 'canceled', 'paused'] },
     },
-    category: [{
+    priority: {
         type: String,
-        required: [true, 'Categoria não informado.'] 
-    }],
+        enum: { values: ['light', 'moderate', 'urgent'] }, 
+    },
     date_start: {
         type: Date,
     },
