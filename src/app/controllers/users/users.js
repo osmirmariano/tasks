@@ -3,6 +3,11 @@ const { users } = require('../../models/index');
 var bcrypt = require('bcryptjs');
 
 class Users {
+    /**
+     * Method for create user
+     * @param {*} req 
+     * @param {*} res 
+     */
     async store(req, res){
         let hash = bcrypt.hashSync(req.body.password, 8);
         let userBody = {
@@ -33,6 +38,11 @@ class Users {
         }
     }
 
+    /**
+     * Method for update users in id
+     * @param {*} req 
+     * @param {*} res 
+     */
     async update(req, res){
         try {
             let body = {
@@ -59,6 +69,11 @@ class Users {
         }
     }
 
+    /**
+     * Method for list user in id
+     * @param {*} req 
+     * @param {*} res 
+     */
     async showById(req, res){
         try {
             let userInfo = await users.findOne({ _id: req.params.id }, '-password').exec();

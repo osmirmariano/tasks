@@ -40,6 +40,11 @@ class UsersAdmin {
         }
     }
 
+    /**
+     * Method for delete user, admin with permission do can
+     * @param {*} req 
+     * @param {*} res 
+     */
     async delete(req, res){
         try {
             await users.findOneAndDelete({ _id: req.params.id })
@@ -62,6 +67,11 @@ class UsersAdmin {
         }
     }
 
+    /**
+     * Method for list all users 
+     * @param {*} req 
+     * @param {*} res 
+     */
     async show(req, res){
         try {
             let page = 1

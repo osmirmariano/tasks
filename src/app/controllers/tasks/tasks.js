@@ -3,6 +3,11 @@ const { tasks } = require('../../models/index')
 var moment = require('moment');
 
 class Tasks {
+    /**
+     * Method for create tasks
+     * @param {*} req 
+     * @param {*} res 
+     */
     async store(req, res){
         var dia  = req.body.date_start.split("-")[0];
         var mes  = req.body.date_start.split("-")[1];
@@ -46,6 +51,11 @@ class Tasks {
         }
     }
 
+    /**
+     * Method for list all tasks
+     * @param {*} req 
+     * @param {*} res 
+     */
     async show(req, res){
         try {
             let showTask = await tasks.find({ 'group.id_group': req.query.id });
@@ -69,6 +79,11 @@ class Tasks {
         }
     }
 
+    /**
+     * Method for list task in id
+     * @param {*} req 
+     * @param {*} res 
+     */
     async showById(req, res){
         try {
             let showTask = await tasks.findOne({ _id: req.params.id });
@@ -92,6 +107,11 @@ class Tasks {
         }
     }
 
+    /**
+     * Method for update task in id
+     * @param {*} req 
+     * @param {*} res 
+     */
     async update(req, res){
         if(req.body.date_start) {
             var dia  = req.body.date_start.split("-")[0];
@@ -136,6 +156,11 @@ class Tasks {
         }
     }
 
+    /**
+     * Method for delete task in id
+     * @param {*} req 
+     * @param {*} res 
+     */
     async delete(req, res){
         try {
             await tasks.findOneAndDelete({ _id: req.params.id });

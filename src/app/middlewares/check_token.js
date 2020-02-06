@@ -5,6 +5,12 @@ var config = require('../../config/config');
 class CheckToken {
     constructor() { }
 
+    /**
+     * Method for check authorization with token
+     * @param {*} req 
+     * @param {*} res 
+     * @param {*} next 
+     */
     async check(req, res, next) {
         const token = req.headers.authorization;
         if (!token) {
