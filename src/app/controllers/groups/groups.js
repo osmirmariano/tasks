@@ -30,7 +30,26 @@ class Groups {
     }
 
     async show(req, res){
-
+        try {
+            let showGroup = await groups.find({ 'user.id_user': req.query.id });
+            res.status(200).json({
+                messageCode: 0,
+                message: {
+                    title: "Sucesso",
+                    message: "Tarefas listas com sucesso!"
+                },
+                data: showGroup
+            })
+        } catch (error) {
+            res.status(200).json({
+                messageCode: 3,
+                message: {
+                    title: "Erro",
+                    message: "Não foi posível listar tarefas!"
+                },
+                data: error
+            })
+        }
     }
 
     async showById(req, res){
