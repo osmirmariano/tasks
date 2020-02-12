@@ -1,4 +1,4 @@
-const { groups } = require('../../models/index')
+const { groups, tasks } = require('../../models/index')
 
 class Groups {
     /**
@@ -70,6 +70,7 @@ class Groups {
     async showById(req, res){
         try {
             let showGroup = await groups.findById({ _id: req.params.id });
+            showGroup ?
             res.status(200).json({
                 messageCode: 0,
                 message: {
@@ -77,6 +78,14 @@ class Groups {
                     message: "Grupo listado com sucesso!"
                 },
                 data: showGroup
+            })
+            :
+            res.status(200).json({
+                messageCode: 0,
+                message: {
+                    title: "Sucesso",
+                    message: "Não foi encontrado nenhum grupo com esse Id!"
+                }
             })
         } catch (error) {
             res.status(200).json({
@@ -102,6 +111,7 @@ class Groups {
         
         try {
             let updateGroup = await groups.findByIdAndUpdate({ _id: req.params.id }, groupBody, { new: true});
+            updateGroup ?
             res.status(200).json({
                 messageCode: 0,
                 message: {
@@ -110,8 +120,16 @@ class Groups {
                 },
                 data: updateGroup
             })
-        } catch (error) {
+            :
             res.status(200).json({
+                messageCode: 0,
+                message: {
+                    title: "Sucesso",
+                    message: "Não foi encontrado nenhum grupo com esse Id!"
+                }
+            })
+        } catch (error) {
+            res.status(400).json({
                 messageCode: 3,
                 message: {
                     title: "Erro",
@@ -129,9 +147,33 @@ class Groups {
      */
     async delete(req, res){
         try {
-            // let deleteGroup = await groups.findById({ _id: req.params.id,  })
+            let de = await groups.findOneAndDelete({ _id: req.params.id });
+            await tasks.remove({ 'group.id_group': req.params.id });
+            de ?
+            res.status(200).json({
+                messageCode: 0,
+                message: {
+                    title: "Sucesso",
+                    message: "Grupo deletado com sucesso!"
+                }
+            })
+            :
+            res.status(200).json({
+                messageCode: 0,
+                message: {
+                    title: "Sucesso",
+                    message: "Não existe grupo com esse Id!"
+                }
+            })
         } catch (error) {
-            
+            res.status(400).json({
+                messageCode: 3,
+                message: {
+                    title: "Erro",
+                    message: "Não foi posível deletar grupo!"
+                },
+                data: error
+            })
         }
     }
 

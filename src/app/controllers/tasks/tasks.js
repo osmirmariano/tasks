@@ -1,6 +1,5 @@
 
 const { tasks } = require('../../models/index');
-const { formatDate } = require('../../helpers/filters')
 var moment = require('moment');
 
 class Tasks {
@@ -10,20 +9,8 @@ class Tasks {
      * @param {*} res 
      */
     async store(req, res){
-        formatDate(req.body.date_start)
-        formatDate(req.body.date_end)
-        // var dia  = req.body.date_start.split("-")[0];
-        // var mes  = req.body.date_start.split("-")[1];
-        // var ano  = req.body.date_start.split("-")[2];
-        // dia[0] == 0 ? dia = dia[1] : dia = dia;
-
-        // var dia2  = req.body.date_end.split("-")[0];
-        // var mes2  = req.body.date_end.split("-")[1];
-        // var ano2  = req.body.date_end.split("-")[2];
-        // dia2[0] == 0 ? dia2 = dia2[1] : dia2 = dia2;
-
-        // req.body.date_start = moment().date(dia).month(mes).year(ano).format('YYYY-MM-DDTHH:mm:ss');
-        // req.body.date_end = moment().date(dia2).month(mes2).year(ano2).format('YYYY-MM-DDTHH:mm:ss');
+        req.body.date_start = moment(req.body.date_start).format("YYYY-MM-DDTHH:mm:ss");
+        req.body.date_end = moment(req.body.date_end).format("YYYY-MM-DDTHH:mm:ss");
 
         let taskBody = {
             ...req.body,
@@ -116,25 +103,13 @@ class Tasks {
      * @param {*} res 
      */
     async update(req, res){
-        if(req.body.date_start) {
-            var dia  = req.body.date_start.split("-")[0];
-            var mes  = req.body.date_start.split("-")[1];
-            var ano  = req.body.date_start.split("-")[2];
-            dia[0] == 0 ? dia = dia[1] : dia = dia;
-            req.body.date_start = moment.utc().date(dia).month(mes).year(ano).format('YYYY-MM-DDTHH:mm');
-        }
-
-        if(req.body.date_end) {
-            var dia2  = req.body.date_end.split("-")[0];
-            var mes2  = req.body.date_end.split("-")[1];
-            var ano2  = req.body.date_end.split("-")[2];
-            dia2[0] == 0 ? dia2 = dia2[1] : dia2 = dia2;
-            req.body.date_end = moment.utc().date(dia2).month(mes2).year(ano2).format('YYYY-MM-DDTHH:mm');
-        }
+        
+        req.body.date_start ? req.body.date_start = moment(req.body.date_start).format("YYYY-MM-DDTHH:mm:ss") : false;
+        req.body.date_end ? req.body.date_end = moment(req.body.date_end).format("YYYY-MM-DDTHH:mm:ss") : false;
 
         let taskBody = {
             ...req.body,
-            'updated': moment().format('YYYY-MM-DDTHH:mm')
+            'updated': moment().format("YYYY-MM-DDTHH:mm:ss")
         }
         
         try {
