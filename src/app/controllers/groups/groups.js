@@ -1,4 +1,6 @@
 const { groups, tasks } = require('../../models/index')
+const mongoose = require('mongoose')
+const objectId = mongoose.Types.ObjectId
 
 class Groups {
     /**
@@ -121,10 +123,10 @@ class Groups {
                 data: updateGroup
             })
             :
-            res.status(200).json({
-                messageCode: 0,
+            res.status(404).json({
+                messageCode: 5,
                 message: {
-                    title: "Sucesso",
+                    title: "Erro",
                     message: "Não foi encontrado nenhum grupo com esse Id!"
                 }
             })
@@ -183,7 +185,41 @@ class Groups {
      * @param {*} res 
      */
     async share(req, res) {
-
+        try {
+            let groupVerify = await groups.findOne({ _id: req.params.id }).exec();
+            if(groupVerify.user.id_user_sharing.indexOf(req.query.id_user) > -1) {
+                res.status(400).json({
+                    messageCode: 3,
+                    message: {
+                        title: "Erro",
+                        message: "Esse usuário já faz parte desse grupo"
+                    }
+                })
+            } else {
+                let groupShare = await groups.findOneAndUpdate({ _id: req.params.id }, {
+                    $push: { 
+                        'user.id_user_sharing': new objectId(req.query.id_user)
+                    }
+                }, { new: true }).exec();
+                
+                res.status(200).json({
+                    messageCode: 0,
+                    message: {
+                        title: "Sucesso",
+                        message: "Grupo compartilhado com sucesso"
+                    },
+                    data: groupShare
+                })
+            }
+        } catch (error) {
+            res.status(400).json({
+                messageCode: 3,
+                message: {
+                    title: "Erro",
+                    message: "Não foi possível compartilhar o projeto"
+                }
+            })
+        }
     }
 }
 

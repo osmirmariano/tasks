@@ -1,4 +1,4 @@
-const keys = require('../constants/keys');
+const { groups } = require('../models/index');
 
 class CheckPermission {
     constructor() {}
@@ -9,9 +9,19 @@ class CheckPermission {
      * @param {*} res 
      * @param {*} next 
      */
-    async checkPermission(req, res, next) {
-        
+    async checkPermissionGroup(req, res, next) {
+        let array = req.path.split("/");
+        let userGroup = await groups.findOne({ 'user.id_user': req.headers.auth.id, _id: array[array.length-1] });
+        userGroup ?
+            next()
+        : res.status(401).json({
+            messageCode: 3,
+            message: {
+                title: "Erro",
+                message: "Você não permissão para executar essa ação no grupo"
+            }
+        })
     }
 }
 
-module.exports = new checkPermission();
+module.exports = new CheckPermission();
