@@ -17,4 +17,4 @@ app.use("/api/v1", require("./routes/index"));
 
 app.listen(portHttp, () =>  console.log(`${packageJson.name} is running on port ${portHttp} - ${packageJson.version}`));
 
-module.exports = app
+module.exports = app;
